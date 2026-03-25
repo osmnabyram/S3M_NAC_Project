@@ -1,0 +1,16 @@
+CREATE TABLE IF NOT EXISTS users (
+    id SERIAL PRIMARY KEY,
+    username VARCHAR(50) UNIQUE NOT NULL,
+    password_hash TEXT NOT NULL,
+    role VARCHAR(20) DEFAULT 'guest', -- admin, employee, guest
+    vlan_id INTEGER DEFAULT 10,
+    is_active BOOLEAN DEFAULT true
+);
+
+CREATE TABLE IF NOT EXISTS radius_logs (
+    id SERIAL PRIMARY KEY,
+    username VARCHAR(50),
+    auth_status VARCHAR(20),
+    nas_ip VARCHAR(50),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);

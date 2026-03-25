@@ -1,0 +1,64 @@
+services:
+  # 1. Veritabanı: PostgreSQL 17 (18 henüz çıkmadı, en günceli budur)
+  db:
+    image: postgres:17-alpine
+    container_name: nac_postgres
+    restart: always
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - nac_net
+
+  # 2. Redis: Redis 7 (8 henüz yaygın değil, 7 en sağlamı)
+  redis:
+    image: redis:7-alpine
+    container_name: nac_redis
+    restart: always
+    ports:
+      - "6379:6379"
+    networks:
+      - nac_net
+
+  # 3. Python API (Beyin): 3.13-slim mevcut, bunu tutuyoruz
+  api:
+    build:
+      context: ./api
+    container_name: nac_policy_engine
+    restart: always
+    ports:
+      - "8000:8000" # İŞTE BU SATIR EKSİK KANKA!
+    volumes:
+      - ./api:/app
+    environment:
+      - DATABASE_URL=postgresql://${DB_USER}:${DB_PASSWORD}@db:5432/${DB_NAME}
+      - REDIS_URL=redis://redis:6379
+    depends_on:
+      - db
+      - redis
+    networks:
+      - nac_net
+
+  # 4. FreeRADIUS: En güncel kararlı sürümü alıyoruz
+  radius:
+    image: freeradius/freeradius-server:latest
+    container_name: nac_radius
+    restart: always
+    ports:
+      - "1812:1812/udp"
+      - "1813:1813/udp"
+    volumes:
+      - ./radius/config:/etc/raddb
+    depends_on:
+      - api
+    networks:
+      - nac_net
+
+networks:
+  nac_net:
+    driver: bridge
