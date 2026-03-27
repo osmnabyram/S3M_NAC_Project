@@ -11,8 +11,8 @@ CREATE TABLE IF NOT EXISTS radius_logs (
     id SERIAL PRIMARY KEY,
     username VARCHAR(50),
     auth_status VARCHAR(20),
-    nas_ip VARCHAR(50),
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    vlan_id INTEGER,
+    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 -- Varsayılan admin kullanıcısını ekle (zaten varsa atla)

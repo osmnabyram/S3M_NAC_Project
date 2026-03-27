@@ -3,6 +3,9 @@ from sqlalchemy.orm import Session
 from pydantic import BaseModel
 import models, database
 
+# 🔥 EKSİK TABLOLARI OTOMATİK OLUŞTURACAK SİHİRLİ SATIR:
+database.Base.metadata.create_all(bind=database.engine)
+
 app = FastAPI(title="S3M NAC Policy Engine")
 
 # RADIUS sunucusundan bize gelecek isteğin şablonu
@@ -29,21 +32,36 @@ def test_db(db: Session = Depends(database.get_db)):
         }
     return {"status": "Error", "message": "Kullanıcı bulunamadı!"}
 
-# --- YENİ EKLENEN KISIM: KİMLİK DOĞRULAMA (AUTH) KAPISI ---
+# --- KİMLİK DOĞRULAMA (AUTH) VE KAYIT TUTMA (ACCOUNTING) KAPISI ---
 @app.post("/auth")
 def authenticate_user(request: AuthRequest, db: Session = Depends(database.get_db)):
     # 1. Kullanıcıyı veritabanında ara
     user = db.query(models.User).filter(models.User.username == request.username).first()
     
-    # 2. Kullanıcı yoksa veya hesabı pasife alınmışsa (is_active=False) kapıdan çevir
+    # 2. Log nesnesini hazırla (Han Defteri)
+    new_log = models.RadiusLog(username=request.username)
+    
+    # 3. Kullanıcı yoksa veya hesabı pasife alınmışsa kapıdan çevir ve logla
     if not user or not user.is_active:
+        new_log.auth_status = "Access-Reject"
+        db.add(new_log)
+        db.commit()
         raise HTTPException(status_code=401, detail="Access Denied: Kullanıcı bulunamadı veya pasif.")
         
-    # 3. Şifre kontrolü (PDF'e göre ileride buraya hash kontrolü ekleyeceğiz)
+    # 4. Şifre kontrolü hatalıysa kapıdan çevir ve logla
     if user.password_hash != request.password:
+        new_log.auth_status = "Access-Reject"
+        db.add(new_log)
+        db.commit()
         raise HTTPException(status_code=401, detail="Access Denied: Hatalı şifre.")
         
-    # 4. Giriş Başarılı! RADIUS sunucusunun anlayacağı dilde VLAN ve yetki bilgilerini gönder
+    # 5. Giriş Başarılı! Logu doldur, veritabanına kaydet
+    new_log.auth_status = "Access-Accept"
+    new_log.vlan_id = user.vlan_id
+    db.add(new_log)
+    db.commit()
+    
+    # 6. RADIUS sunucusunun anlayacağı dilde VLAN ve yetki bilgilerini gönder
     return {
         "status": "Accept",
         "message": "Access Granted",

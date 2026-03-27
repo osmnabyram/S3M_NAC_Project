@@ -1,0 +1,167 @@
+﻿nac_policy_engine  | INFO:     Will watch for changes in these directories: ['/app']
+nac_policy_engine  | INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+nac_policy_engine  | INFO:     Started reloader process [1] using StatReload
+nac_policy_engine  | Process SpawnProcess-1:
+nac_policy_engine  | Traceback (most recent call last):
+nac_policy_engine  |   File "/usr/local/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 143, in __init__
+nac_policy_engine  |     self._dbapi_connection = engine.raw_connection()
+nac_policy_engine  |                              ~~~~~~~~~~~~~~~~~~~~~^^
+nac_policy_engine  |   File "/usr/local/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 3317, in raw_connection
+nac_policy_engine  |     return self.pool.connect()
+nac_policy_engine  |            ~~~~~~~~~~~~~~~~~^^
+nac_policy_engine  |   File "/usr/local/lib/python3.13/site-packages/sqlalchemy/pool/base.py", line 448, in connect
+nac_policy_engine  |     return _ConnectionFairy._checkout(self)
+nac_policy_engine  |            ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+nac_policy_engine  |   File "/usr/local/lib/python3.13/site-packages/sqlalchemy/pool/base.py", line 1272, in _checkout
+nac_policy_engine  |     fairy = _ConnectionRecord.checkout(pool)
+nac_policy_engine  |   File "/usr/local/lib/python3.13/site-packages/sqlalchemy/pool/base.py", line 712, in checkout
+nac_policy_engine  |     rec = pool._do_get()
+nac_policy_engine  |   File "/usr/local/lib/python3.13/site-packages/sqlalchemy/pool/impl.py", line 177, in _do_get
+nac_policy_engine  |     with util.safe_reraise():
+nac_policy_engine  |          ~~~~~~~~~~~~~~~~~^^
+nac_policy_engine  |   File "/usr/local/lib/python3.13/site-packages/sqlalchemy/util/langhelpers.py", line 121, in __exit__
+nac_policy_engine  |     raise exc_value.with_traceback(exc_tb)
+nac_policy_engine  |   File "/usr/local/lib/python3.13/site-packages/sqlalchemy/pool/impl.py", line 175, in _do_get
+nac_policy_engine  |     return self._create_connection()
+nac_policy_engine  |            ~~~~~~~~~~~~~~~~~~~~~~~^^
+nac_policy_engine  |   File "/usr/local/lib/python3.13/site-packages/sqlalchemy/pool/base.py", line 389, in _create_connection
+nac_policy_engine  |     return _ConnectionRecord(self)
+nac_policy_engine  |   File "/usr/local/lib/python3.13/site-packages/sqlalchemy/pool/base.py", line 674, in __init__
+nac_policy_engine  |     self.__connect()
+nac_policy_engine  |     ~~~~~~~~~~~~~~^^
+nac_policy_engine  |   File "/usr/local/lib/python3.13/site-packages/sqlalchemy/pool/base.py", line 900, in __connect
+nac_policy_engine  |     with util.safe_reraise():
+nac_policy_engine  |          ~~~~~~~~~~~~~~~~~^^
+nac_policy_engine  |   File "/usr/local/lib/python3.13/site-packages/sqlalchemy/util/langhelpers.py", line 121, in __exit__
+nac_policy_engine  |     raise exc_value.with_traceback(exc_tb)
+nac_policy_engine  |   File "/usr/local/lib/python3.13/site-packages/sqlalchemy/pool/base.py", line 896, in __connect
+nac_policy_engine  |     self.dbapi_connection = connection = pool._invoke_creator(self)
+nac_policy_engine  |                                          ~~~~~~~~~~~~~~~~~~~~^^^^^^
+nac_policy_engine  |   File "/usr/local/lib/python3.13/site-packages/sqlalchemy/engine/create.py", line 667, in connect
+nac_policy_engine  |     return dialect.connect(*cargs_tup, **cparams)
+nac_policy_engine  |            ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+nac_policy_engine  |   File "/usr/local/lib/python3.13/site-packages/sqlalchemy/engine/default.py", line 630, in connect
+nac_policy_engine  |     return self.loaded_dbapi.connect(*cargs, **cparams)  # type: ignore[no-any-return]  # NOQA: E501
+nac_policy_engine  |            ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+nac_policy_engine  |   File "/usr/local/lib/python3.13/site-packages/psycopg/connection.py", line 122, in connect
+nac_policy_engine  |     raise last_ex.with_traceback(None)
+nac_policy_engine  | psycopg.OperationalError: connection failed: connection to server at "172.18.0.3", port 5432 failed: Connection refused
+nac_policy_engine  | 	Is the server running on that host and accepting TCP/IP connections?
+nac_policy_engine  | 
+nac_policy_engine  | The above exception was the direct cause of the following exception:
+nac_policy_engine  | 
+nac_policy_engine  | Traceback (most recent call last):
+nac_policy_engine  |   File "/usr/local/lib/python3.13/multiprocessing/process.py", line 313, in _bootstrap
+nac_policy_engine  |     self.run()
+nac_policy_engine  |     ~~~~~~~~^^
+nac_policy_engine  |   File "/usr/local/lib/python3.13/multiprocessing/process.py", line 108, in run
+nac_policy_engine  |     self._target(*self._args, **self._kwargs)
+nac_policy_engine  |     ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+nac_policy_engine  |   File "/usr/local/lib/python3.13/site-packages/uvicorn/_subprocess.py", line 80, in subprocess_started
+nac_policy_engine  |     target(sockets=sockets)
+nac_policy_engine  |     ~~~~~~^^^^^^^^^^^^^^^^^
+nac_policy_engine  |   File "/usr/local/lib/python3.13/site-packages/uvicorn/server.py", line 75, in run
+nac_policy_engine  |     return asyncio_run(self.serve(sockets=sockets), loop_factory=self.config.get_loop_factory())
+nac_policy_engine  |   File "/usr/local/lib/python3.13/asyncio/runners.py", line 195, in run
+nac_policy_engine  |     return runner.run(main)
+nac_policy_engine  |            ~~~~~~~~~~^^^^^^
+nac_policy_engine  |   File "/usr/local/lib/python3.13/asyncio/runners.py", line 118, in run
+nac_policy_engine  |     return self._loop.run_until_complete(task)
+nac_policy_engine  |            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+nac_policy_engine  |   File "/usr/local/lib/python3.13/asyncio/base_events.py", line 725, in run_until_complete
+nac_policy_engine  |     return future.result()
+nac_policy_engine  |            ~~~~~~~~~~~~~^^
+nac_policy_engine  |   File "/usr/local/lib/python3.13/site-packages/uvicorn/server.py", line 79, in serve
+nac_policy_engine  |     await self._serve(sockets)
+nac_policy_engine  |   File "/usr/local/lib/python3.13/site-packages/uvicorn/server.py", line 86, in _serve
+nac_policy_engine  |     config.load()
+nac_policy_engine  |     ~~~~~~~~~~~^^
+nac_policy_engine  |   File "/usr/local/lib/python3.13/site-packages/uvicorn/config.py", line 441, in load
+nac_policy_engine  |     self.loaded_app = import_from_string(self.app)
+nac_policy_engine  |                       ~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+nac_policy_engine  |   File "/usr/local/lib/python3.13/site-packages/uvicorn/importer.py", line 19, in import_from_string
+nac_policy_engine  |     module = importlib.import_module(module_str)
+nac_policy_engine  |   File "/usr/local/lib/python3.13/importlib/__init__.py", line 88, in import_module
+nac_policy_engine  |     return _bootstrap._gcd_import(name[level:], package, level)
+nac_policy_engine  |            ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+nac_policy_engine  |   File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+nac_policy_engine  |   File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+nac_policy_engine  |   File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+nac_policy_engine  |   File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+nac_policy_engine  |   File "<frozen importlib._bootstrap_external>", line 1023, in exec_module
+nac_policy_engine  |   File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+nac_policy_engine  |   File "/app/main.py", line 7, in <module>
+nac_policy_engine  |     database.Base.metadata.create_all(bind=database.engine)
+nac_policy_engine  |     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+nac_policy_engine  |   File "/usr/local/lib/python3.13/site-packages/sqlalchemy/sql/schema.py", line 5928, in create_all
+nac_policy_engine  |     bind._run_ddl_visitor(
+nac_policy_engine  |     ~~~~~~~~~~~~~~~~~~~~~^
+nac_policy_engine  |         ddl.SchemaGenerator, self, checkfirst=checkfirst, tables=tables
+nac_policy_engine  |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+nac_policy_engine  |     )
+nac_policy_engine  |     ^
+nac_policy_engine  |   File "/usr/local/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 3267, in _run_ddl_visitor
+nac_policy_engine  |     with self.begin() as conn:
+nac_policy_engine  |          ~~~~~~~~~~^^
+nac_policy_engine  |   File "/usr/local/lib/python3.13/contextlib.py", line 141, in __enter__
+nac_policy_engine  |     return next(self.gen)
+nac_policy_engine  |   File "/usr/local/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 3257, in begin
+nac_policy_engine  |     with self.connect() as conn:
+nac_policy_engine  |          ~~~~~~~~~~~~^^
+nac_policy_engine  |   File "/usr/local/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 3293, in connect
+nac_policy_engine  |     return self._connection_cls(self)
+nac_policy_engine  |            ~~~~~~~~~~~~~~~~~~~~^^^^^^
+nac_policy_engine  |   File "/usr/local/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 145, in __init__
+nac_policy_engine  |     Connection._handle_dbapi_exception_noconnection(
+nac_policy_engine  |     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+nac_policy_engine  |         err, dialect, engine
+nac_policy_engine  |         ^^^^^^^^^^^^^^^^^^^^
+nac_policy_engine  |     )
+nac_policy_engine  |     ^
+nac_policy_engine  |   File "/usr/local/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 2448, in _handle_dbapi_exception_noconnection
+nac_policy_engine  |     raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+nac_policy_engine  |   File "/usr/local/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 143, in __init__
+nac_policy_engine  |     self._dbapi_connection = engine.raw_connection()
+nac_policy_engine  |                              ~~~~~~~~~~~~~~~~~~~~~^^
+nac_policy_engine  |   File "/usr/local/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 3317, in raw_connection
+nac_policy_engine  |     return self.pool.connect()
+nac_policy_engine  |            ~~~~~~~~~~~~~~~~~^^
+nac_policy_engine  |   File "/usr/local/lib/python3.13/site-packages/sqlalchemy/pool/base.py", line 448, in connect
+nac_policy_engine  |     return _ConnectionFairy._checkout(self)
+nac_policy_engine  |            ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+nac_policy_engine  |   File "/usr/local/lib/python3.13/site-packages/sqlalchemy/pool/base.py", line 1272, in _checkout
+nac_policy_engine  |     fairy = _ConnectionRecord.checkout(pool)
+nac_policy_engine  |   File "/usr/local/lib/python3.13/site-packages/sqlalchemy/pool/base.py", line 712, in checkout
+nac_policy_engine  |     rec = pool._do_get()
+nac_policy_engine  |   File "/usr/local/lib/python3.13/site-packages/sqlalchemy/pool/impl.py", line 177, in _do_get
+nac_policy_engine  |     with util.safe_reraise():
+nac_policy_engine  |          ~~~~~~~~~~~~~~~~~^^
+nac_policy_engine  |   File "/usr/local/lib/python3.13/site-packages/sqlalchemy/util/langhelpers.py", line 121, in __exit__
+nac_policy_engine  |     raise exc_value.with_traceback(exc_tb)
+nac_policy_engine  |   File "/usr/local/lib/python3.13/site-packages/sqlalchemy/pool/impl.py", line 175, in _do_get
+nac_policy_engine  |     return self._create_connection()
+nac_policy_engine  |            ~~~~~~~~~~~~~~~~~~~~~~~^^
+nac_policy_engine  |   File "/usr/local/lib/python3.13/site-packages/sqlalchemy/pool/base.py", line 389, in _create_connection
+nac_policy_engine  |     return _ConnectionRecord(self)
+nac_policy_engine  |   File "/usr/local/lib/python3.13/site-packages/sqlalchemy/pool/base.py", line 674, in __init__
+nac_policy_engine  |     self.__connect()
+nac_policy_engine  |     ~~~~~~~~~~~~~~^^
+nac_policy_engine  |   File "/usr/local/lib/python3.13/site-packages/sqlalchemy/pool/base.py", line 900, in __connect
+nac_policy_engine  |     with util.safe_reraise():
+nac_policy_engine  |          ~~~~~~~~~~~~~~~~~^^
+nac_policy_engine  |   File "/usr/local/lib/python3.13/site-packages/sqlalchemy/util/langhelpers.py", line 121, in __exit__
+nac_policy_engine  |     raise exc_value.with_traceback(exc_tb)
+nac_policy_engine  |   File "/usr/local/lib/python3.13/site-packages/sqlalchemy/pool/base.py", line 896, in __connect
+nac_policy_engine  |     self.dbapi_connection = connection = pool._invoke_creator(self)
+nac_policy_engine  |                                          ~~~~~~~~~~~~~~~~~~~~^^^^^^
+nac_policy_engine  |   File "/usr/local/lib/python3.13/site-packages/sqlalchemy/engine/create.py", line 667, in connect
+nac_policy_engine  |     return dialect.connect(*cargs_tup, **cparams)
+nac_policy_engine  |            ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+nac_policy_engine  |   File "/usr/local/lib/python3.13/site-packages/sqlalchemy/engine/default.py", line 630, in connect
+nac_policy_engine  |     return self.loaded_dbapi.connect(*cargs, **cparams)  # type: ignore[no-any-return]  # NOQA: E501
+nac_policy_engine  |            ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+nac_policy_engine  |   File "/usr/local/lib/python3.13/site-packages/psycopg/connection.py", line 122, in connect
+nac_policy_engine  |     raise last_ex.with_traceback(None)
+nac_policy_engine  | sqlalchemy.exc.OperationalError: (psycopg.OperationalError) connection failed: connection to server at "172.18.0.3", port 5432 failed: Connection refused
+nac_policy_engine  | 	Is the server running on that host and accepting TCP/IP connections?
+nac_policy_engine  | (Background on this error at: https://sqlalche.me/e/20/e3q8)
