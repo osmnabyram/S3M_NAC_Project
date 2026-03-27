@@ -14,3 +14,8 @@ CREATE TABLE IF NOT EXISTS radius_logs (
     nas_ip VARCHAR(50),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+-- Varsayılan admin kullanıcısını ekle (zaten varsa atla)
+INSERT INTO users (username, password_hash, role, vlan_id, is_active)
+VALUES ('s3m_admin', 'hashed_admin_pass', 'admin', 10, true)
+ON CONFLICT (username) DO NOTHING;

@@ -1,12 +1,17 @@
 FROM python:3.13-slim
 
+# Sistem kütüphanelerini yüklüyoruz (Postgres için gerekli)
+RUN apt-get update && apt-get install -y \
+    libpq-dev \
+    gcc \
+    && rm -rf /var/lib/apt/lists/*
+
 WORKDIR /app
 
-# Gerekli kütüphaneleri yüklemek için
+# Gerekli Python kütüphanelerini yüklüyoruz
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
-# Uygulamayı başlatmak için
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000", "--reload", "--reload-dir", "/app"]
