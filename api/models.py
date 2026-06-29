@@ -1,24 +1,61 @@
-from sqlalchemy import Column, Integer, String, Boolean, DateTime
+from sqlalchemy import Column, Integer, String, DateTime, BigInteger
 from datetime import datetime
 from database import Base
 
-# 1. KULLANICI TABLOSU (SİLİNMİŞ OLAN buydu)
-class User(Base):
-    __tablename__ = "users"
-
+class RadCheck(Base):
+    __tablename__ = "radcheck"
     id = Column(Integer, primary_key=True, index=True)
-    username = Column(String, unique=True, index=True)
-    password_hash = Column(String)
-    role = Column(String, default="user")
-    vlan_id = Column(Integer, default=10)
-    is_active = Column(Boolean, default=True)
+    username = Column(String, index=True)
+    attribute = Column(String)
+    op = Column(String, default="==")
+    value = Column(String)
 
-# 2. HAN DEFTERİ / LOG TABLOSU (Yeni eklediğimiz)
-class RadiusLog(Base):
-    __tablename__ = "radius_logs"
-
+class RadReply(Base):
+    __tablename__ = "radreply"
     id = Column(Integer, primary_key=True, index=True)
-    username = Column(String)
-    auth_status = Column(String)  # "Access-Accept" veya "Access-Reject"
-    vlan_id = Column(Integer, nullable=True)
-    timestamp = Column(DateTime, default=datetime.utcnow)
+    username = Column(String, index=True)
+    attribute = Column(String)
+    op = Column(String, default="=")
+    value = Column(String)
+
+class RadUserGroup(Base):
+    __tablename__ = "radusergroup"
+    id = Column(Integer, primary_key=True, index=True)
+    username = Column(String, index=True)
+    groupname = Column(String)
+    priority = Column(Integer, default=1)
+
+class RadGroupReply(Base):
+    __tablename__ = "radgroupreply"
+    id = Column(Integer, primary_key=True, index=True)
+    groupname = Column(String, index=True)
+    attribute = Column(String)
+    op = Column(String, default="=")
+    value = Column(String)
+
+class RadAcct(Base):
+    __tablename__ = "radacct"
+    radacctid = Column(Integer, primary_key=True, index=True)
+    acctsessionid = Column(String, index=True)
+    acctuniqueid = Column(String)
+    username = Column(String, index=True)
+    realm = Column(String)
+    nasipaddress = Column(String)
+    nasportid = Column(String)
+    nasporttype = Column(String)
+    acctstarttime = Column(DateTime)
+    acctupdatetime = Column(DateTime)
+    acctstoptime = Column(DateTime)
+    acctinterval = Column(Integer)
+    acctsessiontime = Column(Integer)
+    acctauthentic = Column(String)
+    connectinfo_start = Column(String)
+    connectinfo_stop = Column(String)
+    acctinputoctets = Column(BigInteger)
+    acctoutputoctets = Column(BigInteger)
+    calledstationid = Column(String)
+    callingstationid = Column(String)
+    acctterminatecause = Column(String)
+    servicetype = Column(String)
+    framedprotocol = Column(String)
+    framedipaddress = Column(String)

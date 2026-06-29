@@ -51,16 +51,14 @@ services:
     networks:
       - nac_net
 
-  # 4. FreeRADIUS: En güncel kararlı sürümü alıyoruz
   radius:
-    image: freeradius/freeradius-server:latest
+    build:
+      context: ./radius
     container_name: nac_radius
     restart: always
     ports:
       - "1812:1812/udp"
       - "1813:1813/udp"
-    volumes:
-      - ./radius/config:/etc/raddb
     depends_on:
       - api
     networks:
