@@ -1,0 +1,45 @@
+server default {
+    listen {
+        type = auth
+        ipaddr = *
+        port = 0
+    }
+
+    listen {
+        type = acct
+        ipaddr = *
+        port = 0
+    }
+
+    authorize {
+        preprocess
+        rest
+        pap
+    }
+
+    authenticate {
+        Auth-Type PAP {
+            pap
+        }
+        Auth-Type Accept {
+            # Accept immediately for MAB
+        }
+        rest
+    }
+
+    accounting {
+        detail
+        rest
+    }
+
+    session {
+        rest
+    }
+
+    post-auth {
+        rest
+        Post-Auth-Type REJECT {
+            rest
+        }
+    }
+}

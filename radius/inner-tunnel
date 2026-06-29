@@ -1,0 +1,31 @@
+server inner-tunnel {
+    listen {
+        ipaddr = 127.0.0.1
+        port = 18120
+        type = auth
+    }
+
+    authorize {
+        preprocess
+        rest
+        pap
+    }
+
+    authenticate {
+        Auth-Type PAP {
+            pap
+        }
+        rest
+    }
+
+    session {
+        rest
+    }
+
+    post-auth {
+        rest
+        Post-Auth-Type REJECT {
+            rest
+        }
+    }
+}
