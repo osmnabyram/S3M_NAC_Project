@@ -16,6 +16,10 @@ A containerized NAC built around FreeRADIUS and a FastAPI policy engine — PAP 
 
 ---
 
+<div align="center">
+<img src="assets/how-it-works.svg" alt="How it works: an animated diagram of the tool's core flow." width="820" />
+</div>
+
 ## Overview
 
 This project, built for the S3M internship assessment, is a foundational Network Access Control system using the RADIUS protocol. It demonstrates the full AAA cycle:
